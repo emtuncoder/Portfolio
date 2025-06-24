@@ -22,41 +22,37 @@ export const ContactSection = () => {
   message: "",
 });
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Submitting form...");
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      const res = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  try {
+    const res = await fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-
-      setFormData({ name: "", email: "", message: "" });
-    } catch (err) {
-      toast({
-        title: "Failed to send",
-        description: err.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
+    if (!res.ok) {
+      throw new Error("Something went wrong");
     }
-  };
+
+    toast({
+      title: "✅ Message Sent!",
+      description: "Thanks for reaching out. I'll respond soon.",
+    });
+
+    setFormData({ name: "", email: "", message: "" });
+  } catch (err) {
+    toast({
+      title: "❌ Failed to Send",
+      description: err.message || "Unexpected error occurred.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
 
   return (
@@ -213,6 +209,7 @@ export const ContactSection = () => {
                 )}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
+              
                 <Send size={16} />
               </button>
             </form>

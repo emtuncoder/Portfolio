@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Error } from "./pages/Error";
+import { Toaster } from "./components/toaster"; // Make sure this path is correct
+
 function App() {
   return (
     <>
@@ -11,6 +13,7 @@ function App() {
           <Route path="/Portfolio" element={<Home />} />
         </Routes>
       </BrowserRouter>
+      <Toaster/>
     </>
   );  
 }

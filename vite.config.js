@@ -1,16 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from "path";
-// https://vite.dev/config/
+import path from "path"
+
 export default defineConfig({
-    base: "/Portfolio/",
-
   plugins: [react(), tailwindcss()],
+  base: "/Portfolio/", // ✅ correct repo name, case-sensitive, with trailing slash
   resolve: {
-    alias: {  
+    alias: {
       "@": path.resolve(__dirname, "./src"),
-
     },
   },
 })
